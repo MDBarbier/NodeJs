@@ -4,11 +4,11 @@ var test_data = require('../model/test-data');
 const sqlite3 = require('sqlite3').verbose();
 
 //create db object
-let db = new sqlite3.Database(':memory:', (err) => {
+let db = new sqlite3.Database('./model/test.db', (err) => {
   if (err) {
     return console.error(err.message);
   }
-  console.log('Connected to the in memory SQLite db!');
+  console.log('Connected to SQLite file test.db!');
 });
 
 exports.get = function(req, res) {  
