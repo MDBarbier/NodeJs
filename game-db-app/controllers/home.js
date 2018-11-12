@@ -1,31 +1,16 @@
 //require statements
-var template = require('../views/template-main');  
-var test_data = require('../model/test-data'); 
-const sqlite3 = require('sqlite3').verbose();
+var template = require('../views/template-main'); 
+var sqlitedal = require('../model/sqlite-dal');
 
-//create db object
-let db = new sqlite3.Database('./model/test.db', (err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Connected to SQLite file test.db!');
-});
 
 exports.get = function(req, res) {  
-  var teamlist = test_data.teamlist;
-  var strTeam = "",
-    i = 0;
-  for (i = 0; i < teamlist.count;) {
-    strTeam = strTeam + "<li>" + teamlist.teams[i].country + "</li>";
-    i = i + 1;
-  }
-  strTeam = "<ul>" + strTeam + "</ul>";
-  res.writeHead(200, {
-    'Content-Type': 'text/html'
-  });
-  res.write(template.build("Test web page on node.js", "Hello there", "<p>The teams in Group " + teamlist.GroupName + " for Euro 2012 are:</p>" + strTeam));
-  res.end();
-};
 
-//close db connection
-db.close();
+  //this is firing to quickly need to put it in a callback which only fires when the query is complete
+  var games = sqlitedal.getGames();
+  console.log("Got games:");
+  console.log(games);
+  
+    console.log("Writing the HTML page using template...");
+    res.write(template.build("Test web page on node.js", "Games I like", "<p>The Games I have been playing recently are: "));  
+    res.end();
+};
