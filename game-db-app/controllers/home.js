@@ -4,13 +4,33 @@ var sqlitedal = require('../model/sqlite-dal');
 
 
 exports.get = function(req, res) {  
-
-  //this is firing to quickly need to put it in a callback which only fires when the query is complete
-  var games = sqlitedal.getGames();
-  console.log("Got games:");
-  console.log(games);
   
-    console.log("Writing the HTML page using template...");
-    res.write(template.build("Test web page on node.js", "Games I like", "<p>The Games I have been playing recently are: "));  
-    res.end();
+  sqlitedal.getGames(function (err, games) {
+
+    console.log("in call back");
+    if (!err)
+    {
+      var html = "<p>The Games I have been playing recently are: ";
+      html += "<ul>";
+
+      games.forEach(game  => {
+        html += "<li>" + game.Name + "</li>";
+      });
+      
+      html += "</ul>";
+
+      console.log("Got games:");
+      console.log(games);
+      console.log("Writing the HTML page using template...");
+      res.write(template.build("Test web page on node.js", "Games I like", html));        
+      res.end();
+    }
+    else {
+      console.log("DB error!");
+      res.write(template.build("There was an error connecting to the db"));
+      res.end();
+    }
+  });
+  
+    
 };
