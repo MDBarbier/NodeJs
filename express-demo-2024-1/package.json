@@ -1,0 +1,14 @@
+{
+  "name": "express-demo-2024-1",
+  "version": "1.0.0",
+  "description": "demo app in express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "matt barbier",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
