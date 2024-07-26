@@ -1,0 +1,11 @@
+{
+  "name": "express-api-demo-1",
+  "version": "1.0.0",
+  "description": "expressjs API demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "matt barbier",
+  "license": "ISC"
+}
